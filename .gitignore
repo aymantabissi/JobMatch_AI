@@ -1,0 +1,19 @@
+# Flutter
+mobile/.dart_tool/
+mobile/build/
+mobile/.flutter-plugins*
+mobile/.packages
+
+# Node
+backend/node_modules/
+backend/.env
+
+# Python
+ai-service/.venv/
+ai-service/__pycache__/
+ai-service/.env
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
