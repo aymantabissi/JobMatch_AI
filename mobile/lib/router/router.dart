@@ -6,6 +6,8 @@ import 'package:go_router/go_router.dart';
 import '../providers/auth_provider.dart';
 import '../features/auth/login_screen.dart';
 import '../features/auth/register_screen.dart';
+import '../features/candidate/candidate_home_page.dart';
+import '../features/recruiter/recruiter_home_page.dart';
 
 final publicRoutes = [
   '/onboarding',
@@ -71,22 +73,22 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
 
       GoRoute(
-        path: '/candidate',
-        builder: (context, state) =>
-            const RoleHomePage(role: 'Candidate'),
-      ),
+  path: '/candidate',
+  builder: (context, state) =>
+      const CandidateHomePage(),
+),
 
-      GoRoute(
-        path: '/recruiter',
-        builder: (context, state) =>
-            const RoleHomePage(role: 'Recruiter'),
-      ),
+GoRoute(
+  path: '/recruiter',
+  builder: (context, state) =>
+      const RecruiterHomePage(),
+),
 
-      GoRoute(
-        path: '/admin',
-        builder: (context, state) =>
-            const RoleHomePage(role: 'Admin'),
-      ),
+GoRoute(
+  path: '/admin',
+  builder: (context, state) =>
+      const RoleHomePage(role: 'Admin'),
+),
     ],
 
     redirect: (context, state) {
@@ -100,10 +102,14 @@ final routerProvider = Provider<GoRouter>((ref) {
       final user = auth.user;
 
       if (user == null) {
-        return publicRoutes.contains(loc)
-            ? null
-            : '/onboarding';
-      }
+  if (loc == '/splash') {
+    return '/onboarding';
+  }
+
+  return publicRoutes.contains(loc)
+      ? null
+      : '/login';
+}
 
       final home = homeForRole(user.role);
 
